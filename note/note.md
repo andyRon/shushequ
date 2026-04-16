@@ -1163,6 +1163,77 @@ BaseMapper
 
 
 
+### MyBatis注解@Select/@Update/@Insert工作原理
+
+```java
+public interface RequestCountMapper extends BaseMapper<RequestCountDO> {
+
+    /**
+     * 获取 PV 总数
+     *
+     * @return
+     */
+    @Select("select sum(cnt) from request_count")
+    Long getPvTotalCount();
+
+    /**
+     * 获取 PV UV 数据列表
+     * @param day
+     * @return
+     */
+    List<StatisticsDayDTO> getPvUvDayList(@Param("day") Integer day);
+
+    /**
+     * 增加计数
+     *
+     * @param id
+     */
+    @Update("update request_count set cnt = cnt + 1 where id = #{id}")
+    void incrementCount(Long id);
+
+    /**
+     * 插入或更新请求计数(解决并发重复插入问题)
+     *
+     * @param host 主机地址
+     * @param date 日期
+     */
+    @Insert("INSERT INTO request_count (host, cnt, date) VALUES (#{host}, 1, #{date}) " +
+            "ON DUPLICATE KEY UPDATE cnt = cnt + 1")
+    void insertOrUpdate(@Param("host") String host, @Param("date") Date date);
+}
+```
+
+```
+@Select/@Update/@Insert 工作原理：
+
+1. Spring 启动 → 扫描 Mapper 接口 → 注册 Bean
+                ↓
+2. 注入 Mapper → 实际是 JDK 动态代理对象
+                ↓
+3. 调用方法 → MapperProxy 拦截
+                ↓
+4. 解析注解 → 提取 SQL 语句
+                ↓
+5. 参数绑定 → #{param} 替换为 ?
+                ↓
+6. 执行 SQL → 通过 JDBC Statement
+                ↓
+7. 结果映射 → ResultSet → Java 对象
+                ↓
+8. 返回结果
+
+```
+
+核心优势：
+✅ 无需编写实现类
+✅ 类型安全（编译期检查）
+✅ 简洁直观
+✅ 与 XML 方式性能相同
+注意事项：
+⚠️ 复杂 SQL 建议用 XML
+⚠️ 动态 SQL 只能用 XML
+⚠️ 多参数必须用 @Param 注解
+
 ## 多配置文件说明
 
 
@@ -1171,6 +1242,8 @@ BaseMapper
 
 ## 请求参数解析
 
+`HttpServletRequest`
+
 
 
 ## Redis实现用户活跃排行榜
@@ -1178,6 +1251,12 @@ BaseMapper
 用户活跃积分
 
 zset
+
+
+
+幂等策略
+
+
 
 
 
