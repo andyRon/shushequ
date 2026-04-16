@@ -989,12 +989,12 @@ com.baomidou.mybatisplus.core.mapper.BaseMapper # MP 基础接口
 
 ### MP基本使用
 
+#### Service CRUD
+
 ```java
 @Repository
 public class TagDao extends ServiceImpl<TagMapper, TagDO> {
 ```
-
-#### Service CRUD
 
 - `@Repository` 注解：这是 Spring 提供的注解，用于标识这个类是一个数据访问层（DAO）组件。Spring 会自动扫描并将其实例化为一个 Bean，方便在其他类中通过依赖注入（DI）使用。
 
@@ -1002,15 +1002,162 @@ public class TagDao extends ServiceImpl<TagMapper, TagDO> {
 
 通过继承 Servicelmpl类，TagDao 就可以使用 MyBatis-Plus 提供的通用 CRUD 方法，如 save、getByld、updateByld等。这些方法已经实现了基本的数据库操作，通常无需自己编写 SQL 语句。
 
+
+
+```java
+@Data
+@EqualsAndHashCode(callSuper = true)
+@TableName("tag")
+public class TagDO extends BaseDO {
+    private static final long serialVersionUID = 3796460143933607644L;
+
+    /**
+     * 标签名称
+     */
+    private String tagName;
+
+    /**
+     * 标签类型：1-系统标签，2-自定义标签
+     */
+    private Integer tagType;
+
+    /**
+     * 状态：0-未发布，1-已发布
+     */
+    private Integer status;
+
+    /**
+     * 是否删除
+     */
+    private Integer deleted;
+}
+```
+
+
+
 #### Mapper CRUD
+
+
+
+#### Service与Mapper的CRUD对比
+
+##### 1. 层级关系
+
+```
+Controller
+    ↓ 调用
+Service (TagService)
+    ↓ 继承
+ServiceImpl<TagMapper, TagDO>  ← Service 层（业务逻辑）
+    ↓ 依赖
+BaseMapper<TagDO>              ← Mapper 层（数据访问）
+    ↓ 映射
+XML/注解 SQL                   ← 数据库操作
+```
+
+
+---
+
+##### 2. Mapper 层 CRUD（基础数据访问）
+
+```java
+public interface TagMapper extends BaseMapper<TagDO> {
+    // 自动继承 BaseMapper 的所有 CRUD 方法
+}
+```
+
+**BaseMapper 提供的方法**：
+
+| 类型     | 方法                                           | 说明         |
+| -------- | ---------------------------------------------- | ------------ |
+| **插入** | `insert(T entity)`                             | 插入一条记录 |
+| **删除** | `deleteById(Serializable id)`                  | 根据 ID 删除 |
+|          | `delete(Wrapper<T> wrapper)`                   | 根据条件删除 |
+| **更新** | `updateById(T entity)`                         | 根据 ID 更新 |
+|          | `update(T entity, Wrapper<T> wrapper)`         | 根据条件更新 |
+| **查询** | `selectById(Serializable id)`                  | 根据 ID 查询 |
+|          | `selectList(Wrapper<T> wrapper)`               | 查询列表     |
+|          | `selectPage(Page<T> page, Wrapper<T> wrapper)` | 分页查询     |
+|          | `selectCount(Wrapper<T> wrapper)`              | 查询总数     |
+
+##### 3. Service 层 CRUD（业务封装）
+
+```java
+@Repository
+public class TagDao extends ServiceImpl<TagMapper, TagDO> {
+    // 自动继承 ServiceImpl 的所有 CRUD 方法
+}
+```
+
+
+**ServiceImpl 提供的方法**（在 BaseMapper 基础上增强）：
+
+| 类型         | 方法                                          | 说明                  |
+| ------------ | --------------------------------------------- | --------------------- |
+| **链式查询** | `lambdaQuery()`                               | Lambda 链式查询       |
+|              | `query()`                                     | 普通链式查询          |
+| **批量操作** | `saveBatch(Collection<T> list)`               | 批量插入              |
+|              | `saveOrUpdateBatch(Collection<T> list)`       | 批量保存或更新        |
+|              | `removeByIds(Collection<?> idList)`           | 批量删除              |
+| **便捷方法** | `save(T entity)`                              | 保存（同 insert）     |
+|              | `removeById(Serializable id)`                 | 删除（同 deleteById） |
+|              | `updateById(T entity)`                        | 更新（同 updateById） |
+|              | `getById(Serializable id)`                    | 查询（同 selectById） |
+|              | `list(Wrapper<T> queryWrapper)`               | 查询列表              |
+|              | `page(Page<T> page, Wrapper<T> queryWrapper)` | 分页查询              |
+
+##### **4. 核心区别对比**
+
+| 维度         | Mapper 层         | Service 层              |
+| ------------ | ----------------- | ----------------------- |
+| **继承**     | `BaseMapper<T>`   | `ServiceImpl<M, T>`     |
+| **定位**     | 数据访问层（DAO） | 业务逻辑层              |
+| **功能**     | 基础 CRUD         | 基础 CRUD + 业务封装    |
+| **链式查询** | ❌ 不支持          | ✅ 支持 `lambdaQuery()`  |
+| **批量操作** | ❌ 需手动循环      | ✅ 内置 `saveBatch()`    |
+| **事务管理** | ❌ 无              | ✅ 可加 `@Transactional` |
+| **多表操作** | ❌ 单表            | ✅ 可注入多个 Mapper     |
+| **数据转换** | ❌ 返回 DO         | ✅ 可转换为 DTO          |
+| **使用场景** | 简单 SQL 操作     | 复杂业务逻辑            |
+
+##### 最佳实践
+
+- ✅ 简单操作用 `ServiceImpl` 内置方法
+- ✅ 复杂查询在 `Dao` 中封装
+- ✅ 多表操作在 `Dao` 中注入多个 `Mapper`
+- ❌ 避免在 Controller 中直接调用 `Mapper`
+
+
+
+
+
+
+
+
 
 
 
 ### MP查询方法
 
+#### 普通查询
 
+BaseMapper
+
+#### 条件构造器
+
+`Wrapper`  
 
 ### MP自定义SQL
+
+
+
+### MP更新和删除
+
+
+
+
+
+### MP主键策略
 
 
 
