@@ -2,6 +2,7 @@ package top.andyron.shushequ.service.article.repository.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Update;
+import top.andyron.shushequ.service.article.repository.entity.ArticleDetailDO;
 
 /**
  * 文章详情mapper接口

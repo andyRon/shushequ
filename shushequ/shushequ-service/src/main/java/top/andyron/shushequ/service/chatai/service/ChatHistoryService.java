@@ -1,5 +1,9 @@
 package top.andyron.shushequ.service.chatai.service;
 
+import top.andyron.shushequ.api.model.enums.ai.AISourceEnum;
+import top.andyron.shushequ.api.model.vo.chat.ChatItemVo;
+import top.andyron.shushequ.api.model.vo.chat.ChatSessionItemVo;
+
 import java.util.List;
 
 /**

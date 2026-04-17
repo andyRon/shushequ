@@ -1,6 +1,7 @@
 package top.andyron.shushequ.service.chatai.service;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Component;
+import top.andyron.shushequ.api.model.enums.ai.AISourceEnum;
 
 import java.util.List;
 import java.util.Map;

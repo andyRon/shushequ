@@ -1,11 +1,14 @@
 package top.andyron.shushequ.service.user.service;
 
-api.model.vo.user.UserInfoSaveReq;
-api.model.vo.user.UserPwdLoginReq;
-api.model.vo.user.UserZsxqLoginReq;
-api.model.vo.user.dto.BaseUserInfoDTO;
-api.model.vo.user.dto.SimpleUserInfoDTO;
-api.model.vo.user.dto.UserStatisticInfoDTO;
+import top.andyron.shushequ.api.model.vo.user.UserInfoSaveReq;
+import top.andyron.shushequ.api.model.vo.user.UserPwdLoginReq;
+import top.andyron.shushequ.api.model.vo.user.UserZsxqLoginReq;
+import top.andyron.shushequ.api.model.vo.user.dto.BaseUserInfoDTO;
+import top.andyron.shushequ.api.model.vo.user.dto.SimpleUserInfoDTO;
+import top.andyron.shushequ.api.model.vo.user.dto.UserStatisticInfoDTO;
+import top.andyron.shushequ.service.user.repository.entity.UserAiDO;
+import top.andyron.shushequ.service.user.repository.entity.UserDO;
+import top.andyron.shushequ.service.user.repository.entity.UserInfoDO;
 
 import java.util.Collection;
 import java.util.List;

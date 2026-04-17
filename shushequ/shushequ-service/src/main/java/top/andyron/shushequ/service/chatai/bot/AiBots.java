@@ -7,6 +7,9 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.andyron.shushequ.api.model.enums.ai.AiBotEnum;
+import top.andyron.shushequ.api.model.vo.chat.ChatItemVo;
+import top.andyron.shushequ.api.model.vo.user.dto.BaseUserInfoDTO;
+import top.andyron.shushequ.service.chatai.constants.ChatConstants;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;

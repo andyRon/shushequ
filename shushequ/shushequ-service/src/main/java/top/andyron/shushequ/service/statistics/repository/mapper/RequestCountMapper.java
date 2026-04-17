@@ -1,7 +1,6 @@
 package top.andyron.shushequ.service.statistics.repository.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-api.model.vo.statistics.dto.StatisticsDayDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

@@ -6,8 +6,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
+import top.andyron.shushequ.api.model.context.ReqInfoContext;
+import top.andyron.shushequ.api.model.enums.*;
+import top.andyron.shushequ.api.model.event.ArticleMsgEvent;
+import top.andyron.shushequ.api.model.exception.ExceptionUtil;
+import top.andyron.shushequ.api.model.vo.article.ArticlePostReq;
+import top.andyron.shushequ.api.model.vo.constants.StatusEnum;
+import top.andyron.shushequ.api.model.vo.user.dto.BaseUserInfoDTO;
+import top.andyron.shushequ.core.permission.UserRole;
+import top.andyron.shushequ.core.senstive.SensitiveService;
 import top.andyron.shushequ.core.util.NumUtil;
+import top.andyron.shushequ.core.util.SpringUtil;
+import top.andyron.shushequ.core.util.id.IdUtil;
+import top.andyron.shushequ.service.article.conveter.ArticleConverter;
+import top.andyron.shushequ.service.article.repository.dao.ArticleDao;
 import top.andyron.shushequ.service.article.repository.dao.ArticleTagDao;
+import top.andyron.shushequ.service.article.repository.entity.ArticleDO;
+import top.andyron.shushequ.service.article.service.ArticleWriteService;
+import top.andyron.shushequ.service.article.service.ColumnSettingService;
+import top.andyron.shushequ.service.image.service.ImageService;
 import top.andyron.shushequ.service.user.service.AuthorWhiteListService;
 import top.andyron.shushequ.service.user.service.UserFootService;
 
@@ -228,7 +245,8 @@ public class ArticleWriteServiceImpl implements ArticleWriteService {
      */
     private boolean canBypassArticlePublishModeration(Long authorId) {
         ReqInfoContext.ReqInfo reqInfo = ReqInfoContext.getReqInfo();
-        BaseUserInfoDTO user = reqInfo == null ? null : reqInfo.getUser();
+
+        BaseUserInfoDTO user = reqInfo == null ? null : reqInfo.getUser(); // TODO
         if (user != null && user.getRole() != null && user.getRole().equalsIgnoreCase(UserRole.ADMIN.name())) {
             return true;
         }

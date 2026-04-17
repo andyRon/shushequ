@@ -1,8 +1,11 @@
 package top.andyron.shushequ.service.article.conveter;
 
-api.model.vo.article.ColumnArticleReq;
-api.model.vo.article.ColumnReq;
-api.model.vo.article.dto.ColumnDTO;
+
+import top.andyron.shushequ.api.model.vo.article.ColumnArticleReq;
+import top.andyron.shushequ.api.model.vo.article.ColumnReq;
+import top.andyron.shushequ.api.model.vo.article.dto.ColumnDTO;
+import top.andyron.shushequ.service.article.repository.entity.ColumnArticleDO;
+import top.andyron.shushequ.service.article.repository.entity.ColumnInfoDO;
 
 import java.util.ArrayList;
 import java.util.Date;

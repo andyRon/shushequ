@@ -2,9 +2,9 @@ package top.andyron.shushequ.service.config.repository.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-api.model.entity.BaseDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import top.andyron.shushequ.api.model.entity.BaseDO;
 
 /**
  * 评论表

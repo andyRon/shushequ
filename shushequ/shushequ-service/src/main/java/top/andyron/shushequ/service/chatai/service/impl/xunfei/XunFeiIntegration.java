@@ -1,8 +1,6 @@
 package top.andyron.shushequ.service.chatai.service.impl.xunfei;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-api.model.vo.chat.ChatItemVo;
-core.util.JsonUtil;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.Data;
@@ -14,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import top.andyron.shushequ.api.model.vo.chat.ChatItemVo;
+import top.andyron.shushequ.service.chatai.constants.ChatConstants;
 
 import javax.annotation.PostConstruct;
 import javax.crypto.Mac;

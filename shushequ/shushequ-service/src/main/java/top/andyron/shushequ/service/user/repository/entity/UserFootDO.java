@@ -1,7 +1,6 @@
 package top.andyron.shushequ.service.user.repository.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-api.model.entity.BaseDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import top.andyron.shushequ.api.model.entity.BaseDO;

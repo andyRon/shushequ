@@ -1,8 +1,6 @@
 package top.andyron.shushequ.service.user.repository.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-api.model.entity.BaseDO;
-api.model.enums.user.UserAIStatEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -15,9 +13,8 @@ import java.util.Date;
  * ai用户表
  *
  * @ClassName: UserAiDO
- * @Author: ygl
- * @Date: 2023/6/25 21:38
- * @Version: 1.0
+ * @author andyron
+ * @date 2026/4/17
  */
 @Data
 @Accessors(chain = true)

@@ -1,10 +1,6 @@
 package top.andyron.shushequ.service.image.oss.impl;
 
 import com.github.hui.quick.plugin.base.file.FileWriteUtil;
-api.model.exception.ExceptionUtil;
-api.model.vo.constants.StatusEnum;
-core.config.ImageProperties;
-core.util.StopWatchUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

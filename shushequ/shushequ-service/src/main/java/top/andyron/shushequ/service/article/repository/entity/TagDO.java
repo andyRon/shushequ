@@ -3,6 +3,7 @@ package top.andyron.shushequ.service.article.repository.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import top.andyron.shushequ.api.model.entity.BaseDO;
 
 /**
  * 标签管理表

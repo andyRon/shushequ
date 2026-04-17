@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.andyron.shushequ.core.util.UrlSlugUtil;
+import top.andyron.shushequ.service.article.repository.dao.ArticleDao;
+import top.andyron.shushequ.service.article.repository.entity.ArticleDO;
 
 import java.util.List;
 

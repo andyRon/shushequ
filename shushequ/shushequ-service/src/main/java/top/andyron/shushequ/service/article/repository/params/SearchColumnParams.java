@@ -1,6 +1,7 @@
 package top.andyron.shushequ.service.article.repository.params;
 
 import lombok.Data;
+import top.andyron.shushequ.api.model.vo.PageParam;
 
 /**
  * 专栏查询

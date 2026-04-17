@@ -6,9 +6,18 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import top.andyron.shushequ.api.model.enums.column.ColumnStatusEnum;
+import top.andyron.shushequ.api.model.exception.ExceptionUtil;
+import top.andyron.shushequ.api.model.vo.PageParam;
+import top.andyron.shushequ.api.model.vo.article.dto.ColumnArticleDTO;
+import top.andyron.shushequ.api.model.vo.article.dto.SimpleArticleDTO;
+import top.andyron.shushequ.api.model.vo.constants.StatusEnum;
+import top.andyron.shushequ.service.article.repository.entity.ColumnArticleDO;
 import top.andyron.shushequ.service.article.repository.entity.ColumnInfoDO;
 import top.andyron.shushequ.service.article.repository.mapper.ColumnArticleMapper;
 import top.andyron.shushequ.service.article.repository.mapper.ColumnInfoMapper;
+import top.andyron.shushequ.service.article.repository.params.SearchColumnArticleParams;
+import top.andyron.shushequ.service.article.repository.params.SearchColumnParams;
 
 import java.util.List;
 

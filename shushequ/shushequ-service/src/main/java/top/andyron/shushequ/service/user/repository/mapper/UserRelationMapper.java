@@ -1,8 +1,6 @@
 package top.andyron.shushequ.service.user.repository.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-api.model.vo.PageParam;
-api.model.vo.user.dto.FollowUserInfoDTO;
 import org.apache.ibatis.annotations.Param;
 import top.andyron.shushequ.api.model.vo.PageParam;
 import top.andyron.shushequ.api.model.vo.user.dto.FollowUserInfoDTO;

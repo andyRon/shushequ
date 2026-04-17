@@ -2,6 +2,13 @@ package top.andyron.shushequ.service.article.repository.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
+import top.andyron.shushequ.api.model.vo.PageParam;
+import top.andyron.shushequ.api.model.vo.article.dto.ArticleAdminDTO;
+import top.andyron.shushequ.api.model.vo.article.dto.SimpleArticleDTO;
+import top.andyron.shushequ.api.model.vo.article.dto.YearArticleDTO;
+import top.andyron.shushequ.service.article.repository.entity.ArticleDO;
+import top.andyron.shushequ.service.article.repository.entity.ReadCountDO;
+import top.andyron.shushequ.service.article.repository.params.SearchArticleParams;
 
 import java.util.List;
 

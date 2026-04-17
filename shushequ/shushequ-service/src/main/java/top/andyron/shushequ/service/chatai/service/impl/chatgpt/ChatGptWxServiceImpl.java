@@ -7,6 +7,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.andyron.shushequ.api.model.context.ReqInfoContext;
+import top.andyron.shushequ.api.model.enums.ai.AISourceEnum;
+import top.andyron.shushequ.core.async.AsyncUtil;
+import top.andyron.shushequ.core.cache.RedisClient;
+import top.andyron.shushequ.service.chatai.constants.ChatConstants;
+import top.andyron.shushequ.service.chatai.service.ChatgptService;
+import top.andyron.shushequ.service.user.repository.entity.UserDO;
+import top.andyron.shushequ.service.user.service.UserService;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;

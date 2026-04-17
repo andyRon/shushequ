@@ -4,9 +4,8 @@ package top.andyron.shushequ.service.constant;
  * ES index
  *
  * @ClassName: EsFieldConstant
- * @Author: ygl
- * @Date: 2023/5/26 09:39
- * @Version: 1.0
+ * @author andyron
+ * @date 2026/4/17
  */
 public class EsIndexConstant {
 

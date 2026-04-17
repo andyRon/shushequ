@@ -1,9 +1,6 @@
 package top.andyron.shushequ.service.chatai.service.impl.deepseek;
 
 import cn.hutool.http.ContentType;
-api.model.vo.chat.ChatItemVo;
-core.autoconf.DynamicConfigContainer;
-core.util.JsonUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import top.andyron.shushequ.api.model.vo.chat.ChatItemVo;
+import top.andyron.shushequ.core.autoconf.DynamicConfigContainer;
+import top.andyron.shushequ.core.util.JsonUtil;
+import top.andyron.shushequ.service.chatai.constants.ChatConstants;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;

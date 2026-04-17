@@ -2,7 +2,10 @@ package top.andyron.shushequ.service.article.conveter;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import top.andyron.shushequ.api.model.vo.article.ColumnArticleReq;
 import top.andyron.shushequ.api.model.vo.article.SearchColumnArticleReq;
+import top.andyron.shushequ.service.article.repository.entity.ColumnArticleDO;
+import top.andyron.shushequ.service.article.repository.params.ColumnArticleParams;
 import top.andyron.shushequ.service.article.repository.params.SearchColumnArticleParams;
 
 @Mapper

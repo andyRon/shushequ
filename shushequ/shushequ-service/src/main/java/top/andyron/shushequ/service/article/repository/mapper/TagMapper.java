@@ -1,6 +1,7 @@
 package top.andyron.shushequ.service.article.repository.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import top.andyron.shushequ.service.article.repository.entity.TagDO;
 
 /**
  * 标签mapper接口

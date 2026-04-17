@@ -1,7 +1,6 @@
 package top.andyron.shushequ.service.shortlink.repository.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-api.model.entity.BaseDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

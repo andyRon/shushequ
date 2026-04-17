@@ -7,6 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import top.andyron.shushequ.api.model.context.ReqInfoContext;
+import top.andyron.shushequ.api.model.enums.ai.AISourceEnum;
+import top.andyron.shushequ.api.model.enums.ai.AiChatStatEnum;
+import top.andyron.shushequ.api.model.vo.chat.ChatItemVo;
+import top.andyron.shushequ.api.model.vo.chat.ChatRecordsVo;
+import top.andyron.shushequ.core.cache.RedisClient;
+import top.andyron.shushequ.core.util.SpringUtil;
+import top.andyron.shushequ.service.chatai.ChatFacade;
+import top.andyron.shushequ.service.chatai.constants.ChatConstants;
+import top.andyron.shushequ.service.service.SensitiveAiOptimizeService;
+import top.andyron.shushequ.service.user.service.UserAiService;
 
 import java.util.Arrays;
 import java.util.Iterator;

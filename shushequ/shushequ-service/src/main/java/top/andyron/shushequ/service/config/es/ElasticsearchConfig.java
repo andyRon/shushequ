@@ -19,8 +19,8 @@ import org.springframework.context.annotation.Configuration;
 /**
  * es配置类
  *
- * @author ygl
- * @since 2023-05-25
+ * @author andyron
+ * @date 2026/4/17
  **/
 @Slf4j
 @Data

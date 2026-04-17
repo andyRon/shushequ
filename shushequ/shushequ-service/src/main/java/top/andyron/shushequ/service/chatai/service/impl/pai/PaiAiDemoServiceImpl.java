@@ -2,8 +2,11 @@ package top.andyron.shushequ.service.chatai.service.impl.pai;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import top.andyron.shushequ.api.model.enums.ai.AISourceEnum;
 import top.andyron.shushequ.api.model.enums.ai.AiChatStatEnum;
 import top.andyron.shushequ.api.model.vo.chat.ChatItemVo;
+import top.andyron.shushequ.api.model.vo.chat.ChatRecordsVo;
+import top.andyron.shushequ.core.async.AsyncUtil;
 import top.andyron.shushequ.service.chatai.service.AbsChatService;
 
 import java.util.function.BiConsumer;

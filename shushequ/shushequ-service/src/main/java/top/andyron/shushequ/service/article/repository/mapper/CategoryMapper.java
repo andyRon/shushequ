@@ -1,6 +1,7 @@
 package top.andyron.shushequ.service.article.repository.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import top.andyron.shushequ.service.article.repository.entity.CategoryDO;
 
 /**
  * 类目管理mapper接口

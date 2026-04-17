@@ -1,12 +1,13 @@
 package top.andyron.shushequ.service.article.conveter;
 
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import top.andyron.shushequ.api.model.vo.article.CategoryReq;
+import top.andyron.shushequ.api.model.vo.article.SearchCategoryReq;
 import top.andyron.shushequ.api.model.vo.article.dto.CategoryDTO;
 import top.andyron.shushequ.service.article.repository.entity.CategoryDO;
+import top.andyron.shushequ.service.article.repository.params.SearchCategoryParams;
 
 import java.util.List;
 

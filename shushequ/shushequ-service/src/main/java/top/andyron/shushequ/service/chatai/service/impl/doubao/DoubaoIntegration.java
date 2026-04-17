@@ -12,6 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import top.andyron.shushequ.api.model.enums.ChatAnswerTypeEnum;
+import top.andyron.shushequ.api.model.enums.ai.AiChatStatEnum;
+import top.andyron.shushequ.api.model.vo.chat.ChatItemVo;
+import top.andyron.shushequ.api.model.vo.chat.ChatRecordsVo;
+import top.andyron.shushequ.core.autoconf.DynamicConfigContainer;
+import top.andyron.shushequ.service.chatai.constants.ChatConstants;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;

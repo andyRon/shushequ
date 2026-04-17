@@ -18,6 +18,7 @@ import top.andyron.shushequ.service.chatai.config.AiConfigAdminService;
 import top.andyron.shushequ.service.chatai.service.impl.ali.AliIntegration;
 import top.andyron.shushequ.service.chatai.service.impl.chatgpt.ChatGptIntegration;
 import top.andyron.shushequ.service.chatai.service.impl.deepseek.DeepSeekIntegration;
+import top.andyron.shushequ.service.chatai.service.impl.doubao.DoubaoConfig;
 import top.andyron.shushequ.service.chatai.service.impl.doubao.DoubaoIntegration;
 import top.andyron.shushequ.service.chatai.service.impl.pai.PaiAiDemoServiceImpl;
 import top.andyron.shushequ.service.chatai.service.impl.xunfei.XunFeiIntegration;
