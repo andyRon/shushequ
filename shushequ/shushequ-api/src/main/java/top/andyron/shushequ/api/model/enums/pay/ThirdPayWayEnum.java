@@ -6,6 +6,7 @@ import java.util.Objects;
 
 /**
  * 三方平台支付方式
+ *
  * @author andyron
  * @date 2026/4/17
  */

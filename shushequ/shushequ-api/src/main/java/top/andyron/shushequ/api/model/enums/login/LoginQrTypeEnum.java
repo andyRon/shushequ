@@ -4,6 +4,7 @@ import lombok.Getter;
 
 /**
  * 微信公众号登录二维码类型
+ *
  * @author andyron
  * @date 2026/4/17
  */

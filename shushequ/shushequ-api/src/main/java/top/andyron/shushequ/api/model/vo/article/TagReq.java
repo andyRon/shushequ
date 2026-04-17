@@ -1,0 +1,30 @@
+package top.andyron.shushequ.api.model.vo.article;
+
+import lombok.Data;
+
+import java.io.Serializable;
+
+/**
+ * 保存Tag请求参数
+ *
+ * @author andyron
+ * @date 2026/4/17
+ */
+@Data
+public class TagReq implements Serializable {
+
+    /**
+     * ID
+     */
+    private Long tagId;
+
+    /**
+     * 标签名称
+     */
+    private String tag;
+
+    /**
+     * 类目ID
+     */
+    private Long categoryId;
+}
