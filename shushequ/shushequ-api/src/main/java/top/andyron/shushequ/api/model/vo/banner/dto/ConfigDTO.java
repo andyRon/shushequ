@@ -10,8 +10,8 @@ import top.andyron.shushequ.api.model.enums.ConfigTagEnum;
 /**
  * Banner
  *
- * @author louzai
- * @date 2022-09-17
+ * @author andyron
+ * @date 2026/4/17
  */
 @Data
 public class ConfigDTO extends BaseDTO {

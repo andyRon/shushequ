@@ -5,8 +5,8 @@ import lombok.Data;
 /**
  * 用户关系入参
  *
- * @author louzai
- * @date 2022-07-24
+ * @author andyron
+ * @date 2026/4/17
  */
 @Data
 public class UserRelationReq {

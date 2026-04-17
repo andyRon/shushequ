@@ -9,9 +9,9 @@ import lombok.ToString;
  * 返回的数据结构体
  * <p>
  *
- * @author yihui
+ * @author andyron
+ * @date 2026/4/17
  * @link <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Passive_user_reply_message.html"/>
- * @date 2022/6/20
  */
 @Data
 @ToString(callSuper = true)

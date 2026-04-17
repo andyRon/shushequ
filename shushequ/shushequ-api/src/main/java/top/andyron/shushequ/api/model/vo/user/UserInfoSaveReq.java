@@ -7,8 +7,8 @@ import java.util.Map;
 /**
  * 用户信息入参
  *
- * @author louzai
- * @date 2022-07-24
+ * @author andyron
+ * @date 2026/4/17
  */
 @Data
 public class UserInfoSaveReq {

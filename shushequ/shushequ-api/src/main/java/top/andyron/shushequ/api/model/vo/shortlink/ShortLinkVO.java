@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 /**
  * 短链接返回对象
  *
- * @author betasecond
- * @date 2025-02-13
+ * @author andyron
+ * @date 2026/4/17
  */
 @Data
 @NoArgsConstructor

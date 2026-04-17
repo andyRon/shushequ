@@ -6,8 +6,8 @@ import lombok.experimental.Accessors;
 /**
  * 用户入参
  *
- * @author louzai
- * @date 2022-07-24
+ * @author andyron
+ * @date 2026/4/17
  */
 @Data
 @Accessors(chain = true)
