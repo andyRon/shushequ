@@ -13,8 +13,8 @@ import java.util.*;
  * Loads .env-style files into JVM system properties before Spring starts.
  * Environment variables and explicit -D properties still take precedence.
  *
- * @author itwanger
- * @date 2026/3/23
+ * @author andyron
+ * @date 2026/4/17
  */
 public final class DotenvUtil {
     private static final List<String> ENV_FILES = Arrays.asList(".env", ".env.local");

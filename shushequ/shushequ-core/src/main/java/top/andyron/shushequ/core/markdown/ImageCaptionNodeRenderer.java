@@ -15,8 +15,8 @@ import java.util.Set;
  * <p>
  * Renders images with alt text wrapped in figure tags with figcaption
  *
- * @author 沉默王二
- * @date 2025-10-20
+ * @author andyron
+ * @date 2026/4/17
  */
 public class ImageCaptionNodeRenderer implements NodeRenderer {
 

@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
  * This extension automatically wraps images with alt text in figure tags
  * and displays the alt text as a caption below the image.
  *
- * @author 沉默王二
- * @date 2025-10-20
+ * @author andyron
+ * @date 2026/4/17
  */
 public class ImageCaptionExtension implements HtmlRenderer.HtmlRendererExtension {
 
