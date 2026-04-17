@@ -7,7 +7,7 @@ import com.mysql.cj.MysqlConnection;
 import com.zaxxer.hikari.pool.HikariProxyConnection;
 import com.zaxxer.hikari.pool.HikariProxyPreparedStatement;
 import lombok.extern.slf4j.Slf4j;
-import nonapi.io.github.classgraph.utils.ReflectionUtils;
+import org.springframework.util.ReflectionUtils;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -83,10 +83,21 @@ public class SqlStateInterceptor implements Interceptor {
         Configuration configuration = null;
         if (statementHandler.getParameterHandler() instanceof DefaultParameterHandler) {
             DefaultParameterHandler handler = (DefaultParameterHandler) statementHandler.getParameterHandler();
-            configuration = (Configuration) ReflectionUtils.getFieldVal(handler, "configuration", false);
+            var field = ReflectionUtils.findField(handler.getClass(), "configuration");
+            if (field != null) {
+                ReflectionUtils.makeAccessible(field);
+                configuration = (Configuration) ReflectionUtils.getField(field, handler);
+            }
         } else if (statementHandler.getParameterHandler() instanceof MybatisParameterHandler) {
             MybatisParameterHandler paramHandler = (MybatisParameterHandler) statementHandler.getParameterHandler();
-            configuration = ((MappedStatement) ReflectionUtils.getFieldVal(paramHandler, "mappedStatement", false)).getConfiguration();
+            var field = ReflectionUtils.findField(paramHandler.getClass(), "mappedStatement");
+            if (field != null) {
+                ReflectionUtils.makeAccessible(field);
+                MappedStatement mappedStatement = (MappedStatement) ReflectionUtils.getField(field, paramHandler);
+                if (mappedStatement != null) {
+                    configuration = mappedStatement.getConfiguration();
+                }
+            }
         }
 
         if (configuration == null) {
