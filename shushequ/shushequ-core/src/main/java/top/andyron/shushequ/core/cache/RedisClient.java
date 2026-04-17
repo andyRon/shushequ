@@ -7,6 +7,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.connection.RedisZSetCommands;
+import org.springframework.data.redis.connection.zset.DefaultTuple;
+import org.springframework.data.redis.connection.zset.Tuple;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.types.Expiration;
@@ -386,7 +388,7 @@ public class RedisClient {
         return template.execute(new RedisCallback<List<ImmutablePair<String, Double>>>() {
             @Override
             public List<ImmutablePair<String, Double>> doInRedis(RedisConnection connection) throws DataAccessException {
-                Set<RedisZSetCommands.Tuple> set = connection.zRangeWithScores(keyBytes(key), -n, -1);
+                Set<Tuple> set = connection.zRangeWithScores(keyBytes(key), -n, -1);
                 if (set == null) {
                     return Collections.emptyList();
                 }

@@ -1,8 +1,8 @@
 package top.andyron.shushequ.core;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
@@ -39,7 +39,7 @@ public class CoreAutoConfig {
     @Bean("caffeineCacheManager")
     public CacheManager cacheManager() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
-        cacheManager.setCaffeine(CacheProperties.Caffeine.newBuilder().
+        cacheManager.setCaffeine(Caffeine.newBuilder().
                 // 设置过期时间，写入后五分钟国企
                         expireAfterWrite(5, TimeUnit.MINUTES)
                 // 初始化缓存空间大小
