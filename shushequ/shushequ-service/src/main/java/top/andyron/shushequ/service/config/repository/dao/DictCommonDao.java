@@ -2,6 +2,10 @@ package top.andyron.shushequ.service.config.repository.dao;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Repository;
+import top.andyron.shushequ.api.model.vo.article.dto.DictCommonDTO;
+import top.andyron.shushequ.service.config.converter.DictCommonConverter;
+import top.andyron.shushequ.service.config.repository.entity.DictCommonDO;
+import top.andyron.shushequ.service.config.repository.mapper.DictCommonMapper;
 
 import java.util.List;
 

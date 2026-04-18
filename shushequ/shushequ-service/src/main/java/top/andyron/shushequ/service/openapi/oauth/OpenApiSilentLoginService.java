@@ -1,6 +1,13 @@
 package top.andyron.shushequ.service.openapi.oauth;
 
 import org.springframework.stereotype.Service;
+import top.andyron.shushequ.api.model.enums.RoleEnum;
+import top.andyron.shushequ.api.model.user.OpenApiUserDTO;
+import top.andyron.shushequ.service.user.repository.entity.UserAiDO;
+import top.andyron.shushequ.service.user.repository.entity.UserDO;
+import top.andyron.shushequ.service.user.repository.entity.UserInfoDO;
+import top.andyron.shushequ.service.user.service.UserService;
+import top.andyron.shushequ.service.user.service.help.UserSessionHelper;
 
 /**
  * 静默登录的开放平台接口（授权的第三方平台，可以根据用户技术派的TOKEN来获取用户信息，实现静默登录）

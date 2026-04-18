@@ -9,6 +9,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import top.andyron.shushequ.api.model.context.ReqInfoContext;
+import top.andyron.shushequ.api.model.enums.ai.AISourceEnum;
+import top.andyron.shushequ.api.model.vo.chat.ChatRecordsVo;
+import top.andyron.shushequ.core.util.SpringUtil;
+import top.andyron.shushequ.service.chatai.service.ChatServiceFactory;
+import top.andyron.shushequ.service.chatai.service.impl.chatgpt.ChatGptIntegration;
+import top.andyron.shushequ.service.chatai.service.impl.xunfei.XunFeiIntegration;
+import top.andyron.shushequ.service.chatai.service.impl.zhipu.ZhipuCodingIntegration;
+import top.andyron.shushequ.service.chatai.service.impl.zhipu.ZhipuIntegration;
+import top.andyron.shushequ.service.user.service.conf.AiConfig;
 
 import java.util.Collections;
 import java.util.Set;

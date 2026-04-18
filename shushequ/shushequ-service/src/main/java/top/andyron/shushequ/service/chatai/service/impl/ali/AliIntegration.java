@@ -24,6 +24,7 @@ import top.andyron.shushequ.api.model.enums.ChatAnswerTypeEnum;
 import top.andyron.shushequ.api.model.enums.ai.AiChatStatEnum;
 import top.andyron.shushequ.api.model.vo.chat.ChatItemVo;
 import top.andyron.shushequ.api.model.vo.chat.ChatRecordsVo;
+import top.andyron.shushequ.core.util.JsonUtil;
 import top.andyron.shushequ.service.chatai.constants.ChatConstants;
 
 import java.util.ArrayList;

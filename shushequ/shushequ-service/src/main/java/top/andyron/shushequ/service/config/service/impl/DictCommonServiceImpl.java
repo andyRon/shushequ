@@ -3,6 +3,11 @@ package top.andyron.shushequ.service.config.service.impl;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.andyron.shushequ.api.model.vo.article.dto.CategoryDTO;
+import top.andyron.shushequ.api.model.vo.article.dto.DictCommonDTO;
+import top.andyron.shushequ.service.article.service.CategoryService;
+import top.andyron.shushequ.service.config.repository.dao.DictCommonDao;
+import top.andyron.shushequ.service.config.service.DictCommonService;
 
 import javax.annotation.Resource;
 import java.util.HashMap;

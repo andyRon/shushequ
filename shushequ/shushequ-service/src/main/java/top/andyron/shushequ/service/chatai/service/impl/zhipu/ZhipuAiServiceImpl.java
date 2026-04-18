@@ -4,6 +4,11 @@ package top.andyron.shushequ.service.chatai.service.impl.zhipu;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.andyron.shushequ.api.model.enums.ai.AISourceEnum;
+import top.andyron.shushequ.api.model.enums.ai.AiChatStatEnum;
+import top.andyron.shushequ.api.model.vo.chat.ChatItemVo;
+import top.andyron.shushequ.api.model.vo.chat.ChatRecordsVo;
+import top.andyron.shushequ.service.chatai.service.AbsChatService;
 
 import java.util.function.BiConsumer;
 

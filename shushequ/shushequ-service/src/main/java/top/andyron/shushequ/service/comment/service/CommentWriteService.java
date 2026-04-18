@@ -1,5 +1,7 @@
 package top.andyron.shushequ.service.comment.service;
 
+import top.andyron.shushequ.api.model.vo.comment.CommentSaveReq;
+
 /**
  * 评论Service接口
  *

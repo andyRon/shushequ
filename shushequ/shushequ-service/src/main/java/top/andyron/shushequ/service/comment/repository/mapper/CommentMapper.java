@@ -2,6 +2,10 @@ package top.andyron.shushequ.service.comment.repository.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
+import top.andyron.shushequ.api.model.vo.PageParam;
+import top.andyron.shushequ.api.model.vo.comment.SearchCommentReq;
+import top.andyron.shushequ.api.model.vo.comment.dto.CommentAdminDTO;
+import top.andyron.shushequ.service.comment.repository.entity.CommentDO;
 
 import java.util.Collection;
 import java.util.List;
