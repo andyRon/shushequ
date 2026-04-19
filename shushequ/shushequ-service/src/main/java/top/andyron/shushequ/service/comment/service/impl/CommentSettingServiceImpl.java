@@ -20,7 +20,7 @@ import top.andyron.shushequ.service.comment.repository.dao.CommentDao;
 import top.andyron.shushequ.service.comment.repository.entity.CommentDO;
 import top.andyron.shushequ.service.comment.service.CommentSettingService;
 import top.andyron.shushequ.service.comment.service.CommentWriteService;
-import top.andyron.shushequ.service.service.SensitiveBypassService;
+import top.andyron.shushequ.service.sensitive.service.SensitiveBypassService;
 import top.andyron.shushequ.service.statistics.service.CountService;
 import top.andyron.shushequ.service.user.service.UserService;
 

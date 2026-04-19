@@ -13,7 +13,7 @@ import top.andyron.shushequ.service.article.repository.entity.ArticleDO;
 import top.andyron.shushequ.service.article.repository.entity.ArticleTagDO;
 import top.andyron.shushequ.service.article.service.ArticleReadService;
 import top.andyron.shushequ.service.article.service.ArticleRecommendService;
-import top.andyron.shushequ.service.service.SidebarService;
+import top.andyron.shushequ.service.sidebar.service.SidebarService;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,0 +1,57 @@
+package top.andyron.shushequ.web.admin.rest;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import top.andyron.shushequ.api.model.vo.ResVo;
+import top.andyron.shushequ.api.model.vo.user.dto.BaseUserInfoDTO;
+import top.andyron.shushequ.core.permission.Permission;
+import top.andyron.shushequ.core.permission.UserRole;
+import top.andyron.shushequ.service.user.service.AuthorWhiteListService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+/**
+ * 作者白名单服务
+ *
+ * @author andyron
+ * @date 2026/4/19
+ */
+@RestController
+@Tag(name = "作者白名单", description = "发布文章作者白名单管理控制器")
+@Permission(role = UserRole.ADMIN)
+@RequestMapping(path = {"api/admin/author/whitelist"})
+public class AuthorWhiteListController {
+    @Autowired
+    private AuthorWhiteListService articleWhiteListService;
+
+    @GetMapping(path = "get")
+    @Operation(summary = "白名单列表", description = "返回作者白名单列表")
+    public ResVo<List<BaseUserInfoDTO>> whiteList() {
+        return ResVo.ok(articleWhiteListService.queryAllArticleWhiteListAuthors());
+    }
+
+    @GetMapping(path = "add")
+    @Operation(summary = "添加白名单", description = "将指定作者加入作者白名单列表")
+    public ResVo<Boolean> addAuthor(@Parameter(description = "传入需要添加白名单的作者UserId", required = true, schema = @Schema(example = "1"))
+                                        @RequestParam("authorId") Long authorId) {
+        articleWhiteListService.addAuthor2ArticleWhitList(authorId);
+        return ResVo.ok(true);
+    }
+
+    @GetMapping(path = "remove")
+    @Operation(summary = "删除白名单", description = "将作者从白名单列表")
+    public ResVo<Boolean> rmAuthor(@Parameter(description = "传入需要删除白名单的作者UserId", required = true, schema = @Schema(example = "1"))
+                                       @RequestParam("authorId") Long authorId) {
+        articleWhiteListService.removeAuthorFromArticleWhiteList(authorId);
+        return ResVo.ok(true);
+    }
+}
+
+

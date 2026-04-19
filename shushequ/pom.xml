@@ -52,7 +52,7 @@
     <ognl.version>3.4.2</ognl.version>
     <knife4j.version>4.5.0</knife4j.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
-    <opencv.version>4.10.0</opencv.version>
+    <opencv.version>4.9.0-0</opencv.version>
     <sensitive.version>0.24.0</sensitive.version>
     <jwt.version>4.4.0</jwt.version>
     <fastexcel.version>1.1.0</fastexcel.version>
@@ -276,6 +276,13 @@
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
+    </repository>
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
     </repository>
   </repositories>
   <pluginRepositories>

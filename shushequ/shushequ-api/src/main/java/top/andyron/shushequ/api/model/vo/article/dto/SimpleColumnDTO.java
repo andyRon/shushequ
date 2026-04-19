@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import top.andyron.shushequ.api.model.cdn.CdnImgSerializer;
-import top.andyron.shushequ.api.model.cdn.CdnUtil;
+import top.andyron.shushequ.api.model.util.cdn.CdnImgSerializer;
+import top.andyron.shushequ.api.model.util.cdn.CdnUtil;
 
 import java.io.Serializable;
 

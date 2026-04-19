@@ -18,7 +18,7 @@ import top.andyron.shushequ.service.article.repository.dao.ColumnDao;
 import top.andyron.shushequ.service.article.repository.entity.ColumnArticleDO;
 import top.andyron.shushequ.service.article.repository.entity.ColumnInfoDO;
 import top.andyron.shushequ.service.article.service.ColumnService;
-import top.andyron.shushequ.service.service.SensitiveBypassService;
+import top.andyron.shushequ.service.sensitive.service.SensitiveBypassService;
 import top.andyron.shushequ.service.user.service.UserService;
 
 import java.util.List;

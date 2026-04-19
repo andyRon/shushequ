@@ -19,7 +19,7 @@ import top.andyron.shushequ.service.comment.converter.CommentConverter;
 import top.andyron.shushequ.service.comment.repository.dao.CommentDao;
 import top.andyron.shushequ.service.comment.repository.entity.CommentDO;
 import top.andyron.shushequ.service.comment.service.CommentReadService;
-import top.andyron.shushequ.service.service.SensitiveBypassService;
+import top.andyron.shushequ.service.sensitive.service.SensitiveBypassService;
 import top.andyron.shushequ.service.statistics.service.CountService;
 import top.andyron.shushequ.service.user.repository.entity.UserFootDO;
 import top.andyron.shushequ.service.user.service.UserFootService;

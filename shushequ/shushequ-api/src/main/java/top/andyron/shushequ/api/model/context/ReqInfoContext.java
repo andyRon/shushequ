@@ -2,6 +2,8 @@ package top.andyron.shushequ.api.model.context;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
 import lombok.Data;
+import top.andyron.shushequ.api.model.vo.seo.Seo;
+import top.andyron.shushequ.api.model.vo.user.dto.BaseUserInfoDTO;
 
 import java.security.Principal;
 
@@ -68,14 +70,13 @@ public class ReqInfoContext {
         /**
          * 用户信息
          */
-        // TODO
-//        private BaseUserInfoDTO user;
+        private BaseUserInfoDTO user;
         /**
          * 消息数量
          */
         private Integer msgNum;
 
-//        private Seo seo;
+        private Seo seo;
 
         private String deviceId;
 

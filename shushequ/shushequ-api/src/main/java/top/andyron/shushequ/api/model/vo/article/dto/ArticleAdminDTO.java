@@ -2,8 +2,8 @@ package top.andyron.shushequ.api.model.vo.article.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
-import top.andyron.shushequ.api.model.cdn.CdnImgSerializer;
-import top.andyron.shushequ.api.model.cdn.CdnUtil;
+import top.andyron.shushequ.api.model.util.cdn.CdnImgSerializer;
+import top.andyron.shushequ.api.model.util.cdn.CdnUtil;
 
 import java.io.Serializable;
 import java.util.Date;

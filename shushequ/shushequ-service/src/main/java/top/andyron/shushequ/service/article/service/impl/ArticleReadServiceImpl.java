@@ -39,7 +39,7 @@ import top.andyron.shushequ.service.article.service.ArticleReadService;
 import top.andyron.shushequ.service.article.service.CategoryService;
 import top.andyron.shushequ.service.constant.EsFieldConstant;
 import top.andyron.shushequ.service.constant.EsIndexConstant;
-import top.andyron.shushequ.service.service.SensitiveBypassService;
+import top.andyron.shushequ.service.sensitive.service.SensitiveBypassService;
 import top.andyron.shushequ.service.statistics.service.CountService;
 import top.andyron.shushequ.service.user.repository.entity.UserFootDO;
 import top.andyron.shushequ.service.user.service.UserFootService;

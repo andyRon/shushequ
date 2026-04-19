@@ -16,7 +16,7 @@ import top.andyron.shushequ.core.cache.RedisClient;
 import top.andyron.shushequ.core.util.SpringUtil;
 import top.andyron.shushequ.service.chatai.ChatFacade;
 import top.andyron.shushequ.service.chatai.constants.ChatConstants;
-import top.andyron.shushequ.service.service.SensitiveAiOptimizeService;
+import top.andyron.shushequ.service.sensitive.service.SensitiveAiOptimizeService;
 import top.andyron.shushequ.service.user.service.UserAiService;
 
 import java.util.Arrays;
