@@ -1,4 +1,4 @@
-package top.andyron.shushequ.api.model.user;
+package top.andyron.shushequ.api.model.openapi.user;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -29,6 +29,10 @@
       <groupId>top.andyron</groupId>
       <artifactId>shushequ-service</artifactId>
     </dependency>
+    <dependency>
+      <groupId>top.andyron</groupId>
+      <artifactId>shushequ-api</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>

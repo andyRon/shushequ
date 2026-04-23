@@ -13,7 +13,6 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Base64Utils;
 import top.andyron.shushequ.core.cache.RedisClient;
 import top.andyron.shushequ.core.mdc.SelfTraceIdGenerator;
 import top.andyron.shushequ.core.util.JsonUtil;
@@ -23,10 +22,7 @@ import top.andyron.shushequ.service.user.service.LoginService;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 使用jwt来存储用户token，则不需要后端来存储session了
@@ -193,7 +189,7 @@ public class UserSessionHelper {
         // jwt的校验方式，如果token非法或者过期，则直接验签失败
         try {
             DecodedJWT decodedJWT = verifier.verify(session);
-            String pay = new String(Base64Utils.decodeFromString(decodedJWT.getPayload()));
+            String pay = new String((Base64.getDecoder().decode(decodedJWT.getPayload()));
             // jwt验证通过，获取对应的userId
             String userId = String.valueOf(JsonUtil.toObj(pay, HashMap.class).get("u"));
 

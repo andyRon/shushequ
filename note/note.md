@@ -1242,7 +1242,25 @@ public interface RequestCountMapper extends BaseMapper<RequestCountDO> {
 
 ## 请求参数解析
 
+### Get请求参数解析
+
 `HttpServletRequest`
+
+@RequestParam
+
+@PathVariable
+
+
+
+### Post请求参数解析 🔖
+
+HttpServletRequest
+
+HttpServletRequestWrapper
+
+@RequestBody
+
+MultipartFile
 
 
 
@@ -1252,9 +1270,36 @@ public interface RequestCountMapper extends BaseMapper<RequestCountDO> {
 
 zset
 
+### 实现
+
+幂等策略 🔖
 
 
-幂等策略
+
+#### 实际应用场景
+
+用户点赞文章
+
+```
+用户 123 点赞文章 456
+    ↓
+触发 NotifyMsgEvent(PRAISE)
+    ↓
+UserActivityListener 监听到事件
+    ↓
+addActivityScore(123, {articleId: 456, praise: true})
+    ↓
+检查：activity_rank_123_20260421 中是否有 "456_praise"
+    ↓
+没有 → 执行加分
+    ↓
+HSET activity_rank_123_20260421 "456_praise" 2
+ZINCRBY activity_rank_20260421 2 123
+ZINCRBY activity_rank_202604 2 123
+    ↓
+完成
+
+```
 
 
 
@@ -1262,11 +1307,24 @@ zset
 
 ## Redis实现作者白名单
 
+### 白名单类型
 
+| 白名单类型   | 用途             | 存储方式           | 配置位置         |
+| ------------ | ---------------- | ------------------ | ---------------- |
+| 作者白名单   | 文章发布免审核   | Redis Set + 数据库 | global_config 表 |
+| IP 白名单    | OpenAPI 访问控制 | 配置文件           | application.yml  |
+| 域名白名单   | 短链接创建限制   | 配置文件           | application.yml  |
+| 敏感词白名单 | 敏感词过滤豁免   | 数据库             | global_config 表 |
+
+Set
+
+
+
+AuthorWhiteListService
 
 ## Redis实现计数统计
 
-计数：
+### 计数的业务场景
 
 - 用户相关：文章数、文章总阅读数、粉丝数、关注作者数、文章被收藏数、被点赞数
 - 文章相关：文章点赞数、阅读数、收藏数、评论数
@@ -1274,9 +1332,11 @@ zset
   - 网站的总pv/uv，某一天的pv/uv
   - 某个uri的pv/uv
 
+### redis计数器
+
+redis计数器，主要是借助原生的incr指令来实现原子的+1/-1，更棒的是，不仅redis的string支持incr, hash、zset 数据类型同样也支持incr。
 
 
-incr
 
 
 
@@ -1288,9 +1348,54 @@ incr
 
 ## Redis的缓存示例
 
+SpringBoot默认使用[Lettuce](https://github.com/redis/lettuce)（生菜）作为Redis连接池。
+
+> **Lettuce（Java Redis 客户端）**
+>
+> **作用：高性能、线程安全、异步 / 同步 / 响应式 Redis 访问**Lettuce
+>
+> - **线程安全**：基于 Netty NIO → 单连接多线程共享（避开阻塞 / 事务命令）
+> - **API 全面**：同步 / 异步 / 响应式（Reactive）三种模式Lettuce
+> - **高级特性**：Redis Cluster、Sentinel、Pipeline、Pub/Sub、Lua、SSL、自动重连Lettuce
+> - **高性能**：非阻塞 IO、低延迟、高吞吐 → 适合高并发 Java 应用
+> - **Spring 生态**：Spring Boot 默认 Redis 客户端（替代 Jedis）
+
+
+
+```java
+@SpringBootTest(classes = QuickForumApplication.class)
+public class RedisTemplateDemo {
+```
+
+这是 Spring Boot 测试注解，指定测试启动类为 QuickForumApplication。作用是加载完整的应用上下文，使测试类可以使用所有 Spring Bean（如 RedisTemplate），用于集成测试而非单元测试。
+
+RedisTemplate 和 StringRedisTemplate 是 Spring Boot 帮我们预先初始化好的 Redis 连接工厂，可以快速对 Redis 进行操作。RedisTemplate 是泛型类，可以操作任意类型的数据，而 StringRedisTemplate 只能操作字符串类型数据。
+
+
+
+### 项目那种使用Redis实例🔖
+
+一共有两处用到 Redis 缓存，一处会使用 Redis 来保存用户的 session 信息，另外一处会使用 Redis来保存 sitemap（一种 XML 文件，用于向搜索引擎描述网站的结构和内容，包括网站中的页面、文本内容、图片、视频等信息，以帮助搜索引擎更好地索引网站，说人话就是，帮助搜索引擎更好地搜到技术派网站的内容）。
+
+`SitemapServiceImpl`
+
+`UserSessionHelper`
+
 
 
 ## @Cacheable注解实现缓存
+
+Spring的缓存注解不限定底层缓存实现，可以是Caffeine也可以是Redis、memcache、guava。
+
+
+
+@Cacheable
+
+@CachePut
+
+@CacheEvict
+
+@Caching
 
 
 
@@ -1312,6 +1417,55 @@ incr
 
 
 
+### 声明式事务
+
+`@Transactional`  方法或类
+
+
+
+### 编程式事务
+
+方法内的部分代码块
+
+`TransactionTemplate`
+
+```java
+    @Override
+    public Long saveArticle(ArticlePostReq req, Long author) {
+        ArticleDO article = ArticleConverter.toArticleDo(req, author);
+        String content = imageService.mdImgReplace(req.getContent());
+        if (!canBypassArticlePublishModeration(author)) {
+            recordSensitiveHits(req.getTitle(), req.getSummary(), content);
+        }
+        return transactionTemplate.execute(new TransactionCallback<Long>() {
+            @Override
+            public Long doInTransaction(TransactionStatus status) {
+                Long articleId;
+                if (NumUtil.nullOrZero(req.getArticleId())) {
+                    articleId = insertArticle(article, content, req.getTagIds());
+                    log.info("文章发布成功! title={}", req.getTitle());
+                } else {
+                    articleId = updateArticle(article, content, req.getTagIds());
+                    log.info("文章更新成功！ title={}", article.getTitle());
+                }
+                if (req.getColumnId() != null) {
+                    // 更新文章对应的专栏信息
+                    columnSettingService.saveColumnArticle(articleId, req.getColumnId());
+                }
+                return articleId;
+            }
+        });
+    }
+```
+
+
+
+### 事务使用注意事项
+
+
+
+
+
 
 
 ## WEB三大组件
@@ -1324,7 +1478,7 @@ Filter、Servlet、Listener
 
 ## @Schedule
 
-
+Spring的Schedule是单机定时任务，分布式定时任务需要第三方组件，比如：XXL-JOB。
 
 
 
@@ -1338,7 +1492,19 @@ Filter、Servlet、Listener
 
 ## 实时在线人数统计(单机版)
 
-借用Listener实现一个简单的在线人数实时统计的功能，原理：监听session的创建和销毁。
+借用Listener实现一个简单的在线人数实时统计的功能，原理：**监听session的创建和销毁**。
+
+### 设计思路
+
+用户每次访问时，没有则创建session，并设置有效时间，有则更新session中的访问时间；当用户主动退出或者一段时间没有交互之后，则认为用户已经离开，session失效。
+
+基于session的创建与自动销毁的在线人数统计方案；
+
+![](images/image-20260423231037500.png)
+
+`OnlineUserCountListener`
+
+`UserStatisticService`
 
 
 
