@@ -1508,6 +1508,35 @@ Spring的Schedule是单机定时任务，分布式定时任务需要第三方组
 
 
 
+## Spring事件监听机制及原理🔖
+
+Spring 事件监听机制是 Spring 框架中一种重要的技术，它允许在组件之间进行松耦合的通信。通过使用事件监听机制，应用程序的各个组件可以在不直接引用其他组件的情况下，相互发送和接收消息。
+
+在项目中，当发布文章或者下线文章时，会发布一个事件给 SiteMap（站点地图，帮助搜索引擎更有效地抓取和索引网站），SiteMap 监听到该事件后会进行更新。
+
+Spring 事件监听机制的本质是观察者模式的应用，包括事件、事件监听器、事件发布器等主要组件。
+
+- ﻿﻿事件（Event）：一个实现了 `ApplicationEvent` 类的对象，代表了应用程序中的某个特定事件。我们可以根据需要创建自定义事件，只要继承 ApplicationEvent 类并添加相关的属性和方法就可以了。
+- ﻿﻿事件监听器 （Event Listener）：实现了`ApplicationListener<E>` 接口的对象，其中E 表示监听器需要处理的事件类型。监听器可以通过 `onApplicationEvent（E event）` 方法处理接收到的事件。另外，也可以使用`@EventListener` 注解简化事件监听器的实现，项目中采用的正是这种方式。
+- ﻿﻿事件发布器（Event Publisher）：事件发布器负责将事件发布给所有关注该事件的监听器。在 Spring中，`ApplicationEventPublisher` 接口定义了事件发布的基本功能，而 `ApplicationEventPublisherAware` 接口允许组件获取到事件发布器的引用。Spring 的核心容器 `ApplicationContext` 实现了 ApplicationEventPublisher接口，因此在 Spring 应用中，通常直接使用 ApplicationContext 作为事件发布器，技术派采用的正是这种方式。
+
+### 实例 
+
+`ArticleMsgEvent`
+
+
+
+
+
+### 原理
+
+Spring 事件监听机制涉及到四个主要的类：
+
+- ﻿﻿`ApplicationEvent`： 事件对象
+- ﻿﻿`ApplicationListener`：事件监听器，可以通过 @EventListener注解定义事件处理方法，而无需实现ApplicationListener 接口。
+- ﻿﻿`ApplicationEventMulticaster`：事件管理者，管理监听器和发布事件，通常由`SimpleApplicationEventMulticaster` 类实现。它会遍历所有已注册的监听器，并调用它们的 onApplicationEvent（）方法。
+- ﻿﻿`ApplicationEventPublisher`： 事件发布者，在 Spring 中，可以通过实现 ApplicationEventPublisherAware接口或使用 @Autowired 注解来注入 ApplicationEventPublisher 实例。当事件被发布时，Spring 会自动调用已注册的 ApplicationListener 实现类的 onApplicationEvent（）方法。
+
 
 
 ## 图片上传
@@ -1516,19 +1545,190 @@ Spring的Schedule是单机定时任务，分布式定时任务需要第三方组
 
 oss
 
+本项目中是如何实现原生图片上传的，这个功能说起来简单，但其实挺考验技术实力的，因为图片上传涉及到I/O读写，可以说，一个文件上传的功能，就可以把IO 流涉及到的知识全部覆盖到，比如说字节流 ByteArrayInputStream、缓存流 BufferedOutputStream、文件 File 的读写权限、文件魔数等等。
+
+想要完全搞清楚，甚至想要手写一个属于自己的文件读写 Util类，是需要下一番功夫的。因为考虑的细节还是蛮多的，比如说静态资源配置、图片大小限制、前端图片上传组件、后端图片接收参数MultipartHttpServletRequest 等等。
+
+技术派中对于图片的上传，是做了充分准备的，当你在本地拉取技术派源码跑起来的时候，我们默认会把图片保存到本地；当你需要在生产环境部署的话，我们默认会采用OSS 配合CDN 的方式来完成。这篇内容主要来本地上传图片的方式。
+
+### 业务介绍
+
+关于图片上传的入口有三处：
+
+- ﻿﻿发表文章时
+- ﻿﻿上传文章封面时
+- ﻿﻿上传用户头像时
+
+先来看发表文章，这里又涉及到四种方式：
+
+- ﻿﻿通过编辑器的菜单添加图片。
+- ﻿直接复制一张图片粘贴到编辑器中。
+- ﻿复制外部的图片链接（markdown 格式），到编辑器中。
+- ﻿﻿导入 MD 文件到编辑器中（如果有图片链接时）。
+
+
+
+
+
 
 
 ## Bean拷贝之MapStruct
+
+MapStruct 是一个基于 Java 注解处理器的 对象映射框架，用于在 Java Bean 之间进行高效、类型安全的转换。
+
+### 核心概念
+
+#### 1. 什么是 MapStruct？
+
+MapStruct 通过编译时代码生成的方式，自动生成对象映射的代码（即 getter/setter 调用），而不是像 BeanUtils 那样使用反射在运行时进行映射。
+
+#### 2. 为什么需要 MapStruct？
+
+在分层架构中，我们经常需要在不同对象之间转换：
+
+- DO (Data Object) ↔ DTO (Data Transfer Object)
+- DTO ↔ VO (View Object)
+- Entity ↔ Model
+
+传统方式的痛点：
+
+```java
+// ❌ 手动设置 - 代码冗长，容易出错
+UserDTO dto = new UserDTO();
+dto.setId(userDO.getId());
+dto.setName(userDO.getName());
+dto.setEmail(userDO.getEmail());
+// ... 几十个字段要写几十行
+
+// ❌ BeanUtils.copyProperties - 性能差，无编译时检查
+UserDTO dto = new UserDTO();
+BeanUtils.copyProperties(userDO, dto); // 运行时反射，字段名写错也不报错
+```
+
+MapStruct 的优势：
+
+```java
+// ✅ MapStruct - 简洁、高性能、类型安全
+UserDTO dto = UserConverter.INSTANCE.toDto(userDO);
+```
+
+
+
+### 使用
+
+```xml
+        <!-- 引入 mapstruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <scope>compile</scope>
+        </dependency>
+```
+
+
+
+
+
+```java
+@Mapper
+public interface ArticleStructMapper {
+    ArticleStructMapper INSTANCE = Mappers.getMapper( ArticleStructMapper.class );
+
+    @Mapping(source = "pageNumber", target = "pageNum")
+    SearchArticleParams toSearchParams(SearchArticleReq req);
+}
+```
+
+
+
+`@Mapper`：该注解标记这个接口为一个映射器，并告诉MapStruct的注解处理器在编译时为此接口生成实现。
+
+INSTANCE常量：Mappers.getMapper获取映射器实例。
+
+#### @Mapper
+
+##### 1 基本映射
+
+##### 2 常量映射
+
+##### 3 默认值
+
+##### 4 表达式
+
+##### 5 日期格式
+
+##### 6 条件映射
+
+##### 7 嵌套映射
+
+##### 8 忽略映射
+
+##### 9 自定义映射方法
+
+
+
+### MapStruct的IDEA插件
+
+
+
+
+
+### MapStruct原理
+
+
+
+
+
+
+
+
+
+
 
 
 
 ## 全局异常处理
 
+有了全局异常处理，就可以给用户提供更好的反馈。
+
+HandlerExceptionResolver
+
+ControllerAdvice
+
+
+
+本项目中对两种类型异常情况处理：
+
+1. REST接口请求异常，代码返回一个JSON格式的异常提示信息
+   - 首先检查响应是否已经提交，如果已经提交，则直接返回一个空的 ModelAndView。
+   - 如果响应未提交，将重置响应对象，设置响应的内容类型为 JSON，并添加相关的响应头。
+   - 使用 response.getWriter（）将异常状态对象 errStatus 转换为 JSON 格式并写入响应。完成后，返回一个空的 ModelAndView。
+
+2. 如果是普通页面请求异常，代码会返回一个包含错误信息的 HTML 页面：
+
+   - 根据异常状态对象 errStatus 和响应对象 response 获取错误页面的视图名称。
+
+   - ﻿创建一个 ModelAndView 对象，并设置视图名称。
+
+   - ﻿设置响应的内容类型为 HTML。
+
+   - ﻿向 ModelAndView 中添加全局属性、错误响应对象以及错误信息（以JSON 格式）。
+
+   - ﻿﻿最后返回这个 ModelAndView 对象，用于展示错误页面。
+
+
+
 
 
 ## 返回JSON/XML
 
+目前常用是返回JSON入局，SpringBoot中直接在Controller中添加`@RestController`注解。
 
+如果Controller上的注解是`@Controller`，在方法上加`@ResponseBody`也是返回JSON，放撒花姑娘没有这个注解返回就是xml。
 
 
 
